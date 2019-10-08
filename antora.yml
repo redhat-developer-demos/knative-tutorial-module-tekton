@@ -1,0 +1,7 @@
+name: knative-tutorial-tekton
+title: Tekton Pipelines
+version: 0.7.x
+nav:
+  - modules/ROOT/nav.adoc
+
+start_page: ROOT:index.adoc
