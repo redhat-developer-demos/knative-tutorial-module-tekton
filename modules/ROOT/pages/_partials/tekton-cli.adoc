@@ -5,6 +5,7 @@ Verify the Tekton cli
 ----
 tkn version
 ----
+copyToClipboard::tekton-install-cli[]
 
 The command should show a result like:
 
