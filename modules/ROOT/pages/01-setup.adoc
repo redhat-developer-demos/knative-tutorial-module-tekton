@@ -16,25 +16,7 @@ include::knative-tutorial-basics:ROOT:partial$prereq-cli.adoc[]
 Kubernetes::
 +
 --
-
-Enable registry in minikube 
-
-[#tekton-deploy-enable-registry]
-[source,bash,subs="+macros,attributes+"]
-----
-minikube addons enable registry
-----
-copyToClipboard::tekton-deploy-enable-registry[]
-
-A successful enable of registry will show the following pods when running the command ` kubectl get pods -n kube-system | grep registry`
-
-[source,bash,subs="+macros,attributes+"]
-----
-registry-8s8xt                              1/1     Running   0          4m29s
-registry-proxy-wq6xl                        1/1     Running   0          4m29s
-----
-
-Once the registry is enabled, deploy the Tekton pipelines:
+To deploy the Tekton pipelines:
 
 [#tekton-deploy-pipelines]
 [source,bash,subs="+macros,attributes+"]

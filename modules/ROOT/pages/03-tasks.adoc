@@ -32,7 +32,7 @@ include::ROOT:example$build-app-task.yaml[]
 
 Each Task has the following:
 
-* **name** - the unique name using which the task will will be referred
+* **name** - the unique name using which the task can be referred
 * **inputs** - the inputs to the task
 ** **resources** - the pipeline resources that will be used in the task e.g. git-source
 *** **name** - the name of the input resource using which it can be referenced and bound via <<tekton-task-run>>
@@ -133,6 +133,9 @@ endif::[]
 
 We will use the Tekton cli to inspect the created resources
 
+[#tkn-res-tasks]
+=== Task
+
 [#tekton-inspect-task]
 [source,bash,subs="+macros,attributes+"]
 ----
@@ -147,6 +150,9 @@ The above command should list one Task as shown below:
 NAME        AGE
 build-app   12 seconds ago
 ----
+
+[#tkn-res-task-runs]
+=== TaskRun
 
 [#tekton-inspect-taskrun]
 [source,bash,subs="+macros,attributes+"]
@@ -180,7 +186,6 @@ If you see the TaskRun status as `Failed` or `Error` use the following command t
 tkn taskrun describe <taskrun-name>
 ----
 copyToClipboard::tekton-desc-taskrun[]
-
 
 [#tekton-task-run]
 == TaskRun
@@ -290,6 +295,7 @@ tkn tr ls
 # use one task run for which you need the log from list above
 tkn tr logs -f -a <task-run-name> #<1>
 ----
+copyToClipboard::tekton-taskrun-logs[]
 <1> The `-f` or `-a` allows to tail the logs from all the containers of the task. For more options run `tkn tr --help`
 
 IMPORTANT: Each task step will be run within a container of its own.

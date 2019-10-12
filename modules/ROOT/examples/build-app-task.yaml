@@ -9,16 +9,16 @@ spec:
       type: git
    params:
    - name: contextDir
-     description: Parameter Description
+     description: the context dir within source
      default: .
    - name: mavenMirrorUrl
-     description: Parameter Description
+     description: the maven mirrror url
      default: http://repo1.maven.apache.org/maven2
    - name: destinationImage
-     description: Parameter Description
+     description: the fully qualified image name
      default: "$(outputs.resources.builtImage.url)"
    - name: dockerFile
-     description: Parameter Description
+     description: the docker file to used for building the application
      default: Dockerfile.jvm
   outputs:
    resources:

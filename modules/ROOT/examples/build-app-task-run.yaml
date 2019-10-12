@@ -16,7 +16,7 @@ spec:
       value: apps/greeter/java/quarkus
     # Enable if you have maven mirrors to use
     # - name: mavenMirrorUrl
-    #   value: http://nexus:8081/nexus/content/groups/public
+    #   value: http://192.168.99.1:8081/nexus/content/groups/public
   outputs:
    resources:
     - name: builtImage
