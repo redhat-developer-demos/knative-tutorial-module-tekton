@@ -1,1 +1,19 @@
-== OpenShift
+To deploy the Tekton pipelines:
+
+[#install-pipelines]
+[source,bash,subs="+macros,+attributes"]
+----
+oc apply -f "pass:[$TUTORIAL_HOME]/install/pipelines/subscription.yaml"
+----
+copyToClipboard::install-pipelines[]
+
+It will take few minutes for the Knative eventing components to be installed, you can watch the status using:
+
+[#check-pipelines]
+[source,bash,subs="+macros,+attributes"]
+----
+oc get pods -n openshift-pipelines -w 
+----
+copyToClipboard::check-pipelines[]
+
+NOTE: You can terminate the watch using the command kbd:[Ctrl+c]
