@@ -128,13 +128,7 @@ ifndef::workshop[]
 ====
 endif::[]
 
-[#tkn-see-what-you-have-deployed]
-== See what you have deployed
-
 We will use the Tekton cli to inspect the created resources
-
-[#tkn-res-tasks]
-=== Task
 
 [#tekton-inspect-task]
 [source,bash,subs="+macros,attributes+"]
@@ -151,41 +145,10 @@ NAME        AGE
 build-app   12 seconds ago
 ----
 
-[#tkn-res-task-runs]
-=== TaskRun
-
-[#tekton-inspect-taskrun]
-[source,bash,subs="+macros,attributes+"]
-----
-tkn taskrun ls
-----
-copyToClipboard::tekton-inspect-taskrun[]
-
-The above command should list one TaskRun as shown below:
-
-[source,bash]
-----
-NAME              STARTED   DURATION   STATUS
-NAME              STARTED        DURATION   STATUS
-build-app-skgpq   1 minute ago   ---        Running(Pending)
-----
-
-NOTE: It will take few seconds for the TaskRun to show status as `Running` as it needs to download the container images.
-
 [TIP]
 ====
-* Use the command **help** via `tkn taskrun --help` or `tkn task --help`
-* Use `tr` as shorcut for taskrun commands e.g to list taskruns run the command `tkn tr ls`
+* Use the command **help** `tkn task --help`
 ====
-
-If you see the TaskRun status as `Failed` or `Error` use the following command to check the reason for error:
-
-[#tekton-desc-taskrun]
-[source,bash,subs="+macros,attributes+"]
-----
-tkn taskrun describe <taskrun-name>
-----
-copyToClipboard::tekton-desc-taskrun[]
 
 [#tekton-task-run]
 == TaskRun
@@ -215,9 +178,6 @@ In this example we make the Task's menu:spec[inputs>resources>source] to refer t
 ====
 The menu:spec[inputs>resources>source] and menu:spec[outputs>resources>builtImage] were defined as part of the <<tekton-task-create,Task>> specification.
 ====
-
-[#tekton-task-run-run]
-== Run Task
 
 Before we run the Task using TaskRun let us create the Kubernetes service account and attach the needed permissions to the service account, the following Kubernetes resource defines a service account called `pipeline` in namespace `{tutorial-namespace}` who will have administrative role within the `{tutorial-namespace}` namespace.
 
@@ -269,6 +229,8 @@ Kubernetes::
 kubectl create -n {tutorial-namespace} -f link:{github-repo}/{pipelines-repo}/build-app-task-run.yaml[build-app-task-run.yaml]
 ----
 copyToClipboard::tekton-taskrun-run-to-k8s[]
+
+IMPORTANT: As tasks will use generated name, never use `kubectl **apply** -f build-app-task-run.yaml`
 --
 OpenShift::
 +
@@ -280,12 +242,39 @@ endif::[]
 oc create -n {tutorial-namespace} -f link:{github-repo}/{pipelines-repo}/build-app-task-run.yaml[build-app-task-run.yaml]
 ----
 copyToClipboard::tekton-taskrun-run-to-oc[]
+IMPORTANT: As tasks will use generated name, never use `oc **apply** -f build-app-task-run.yaml`
 ifndef::workshop[]
 --
 ====
 endif::[]
 
-You can check the created <<tekton-inspect-taskrun,TaskRun>> and the TaskRun usually takes time to complete, to check the status of the TaskRun use the `logs` command of taskrun like:
+We will use the Tekton cli to inspect the created resources:
+
+[#tekton-inspect-taskrun]
+[source,bash,subs="+macros,attributes+"]
+----
+tkn taskrun ls
+----
+copyToClipboard::tekton-inspect-taskrun[]
+
+The above command should list one TaskRun as shown below:
+
+[source,bash]
+----
+NAME              STARTED   DURATION   STATUS
+NAME              STARTED        DURATION   STATUS
+build-app-skgpq   1 minute ago   ---        Running(Pending)
+----
+
+NOTE: It will take few seconds for the TaskRun to show status as `Running` as it needs to download the container images.
+
+[TIP]
+====
+* Use the command **help** via `tkn taskrun --help` 
+* Use `tr` as shorcut for taskrun commands e.g to list taskruns run the command `tkn tr ls`
+====
+
+To check the status of the TaskRun use the `logs` command of taskrun like:
 
 [#tekton-taskrun-logs]
 [source,bash,subs="+macros,attributes+"]
@@ -299,6 +288,15 @@ copyToClipboard::tekton-taskrun-logs[]
 <1> The `-f` or `-a` allows to tail the logs from all the containers of the task. For more options run `tkn tr --help`
 
 IMPORTANT: Each task step will be run within a container of its own.
+
+If you see the TaskRun status as `Failed` or `Error` use the following command to check the reason for error:
+
+[#tekton-desc-taskrun]
+[source,bash,subs="+macros,attributes+"]
+----
+tkn taskrun describe <taskrun-name>
+----
+copyToClipboard::tekton-desc-taskrun[]
 
 [#tekton-test-task-output]
 === Test Task output

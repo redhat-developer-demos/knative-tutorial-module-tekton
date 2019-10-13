@@ -151,7 +151,7 @@ In this demo the `build-app` Task needs bind two resources namely `source` and `
 
 The binding between the Pipeline resource and Task resources is done via the task's `resources` attribute. In this demo we bind `appSource` -> `source` and `appImage` -> `builtImage`.
 
-IMPORTANT: Only resources of same type can be bound
+IMPORTANT: Only pipeline resources of same type can be bound. e.g. resource of type `git` with `git` or `image` with `image`
 
 [#tekton-pipeline-deploy]
 == Deploy Pipeline
@@ -186,14 +186,8 @@ ifndef::workshop[]
 ====
 endif::[]
 
-
-[#tkn-see-what-you-have-deployed]
-== See what you have deployed
-
 We will use the Tekton cli to inspect the created resources
 
-[#tkn-res-pipelines]
-=== Pipelines
 [#tekton-inspect-pipeline]
 [source,bash,subs="+macros,attributes+"]
 ----
@@ -209,40 +203,10 @@ NAME            AGE             LAST RUN   STARTED   DURATION   STATUS
 kn-svc-deploy   4 seconds ago   ---        ---       ---        ---
 ----
 
-[#tkn-res-pipeline-runs]
-=== PipelineRun
-
-[#tekton-inspect-pipelinerun]
-[source,bash,subs="+macros,attributes+"]
-----
-tkn pipelinerun ls
-----
-copyToClipboard::tekton-inspect-pipelinerun[]
-
-The above command should list one PipelineRun as shown below:
-
-[source,bash]
-----
-NAME                      STARTED          DURATION    STATUS                        
-kn-svc-deploy-run-4896t   4 seconds ago    ---         Running 
-----
-
-NOTE: It will take few seconds for the PipelineRun to show status as `Running` as it needs to download the container images.
-
 [TIP]
 ====
-* Use the command **help** via `tkn pipelinerun --help` or `tkn pipeline --help`
-* Use `pr` as shorcut for pipelinerun commands e.g to list pipelinerun run the command `tkn pr ls`
+Use the command **help** via `tkn pipeline --help` to see more options
 ====
-
-If you see the PipelineRun status as `Failed` or `Error` use the following command to check the reason for error:
-
-[#tekton-desc-pipelinerun]
-[source,bash,subs="+macros,attributes+"]
-----
-tkn pipelinerun describe <pipelinerun-name>
-----
-copyToClipboard::tekton-desc-pipelinerun[]
 
 [#tekton-pipeline-run]
 == Run Pipeline
@@ -279,7 +243,32 @@ tkn pipeline start kn-svc-deploy \
 copyToClipboard::tekton-trigger-pipelinerun-maven-mirror[]
 ====
 
-You can check the created <<pipelinerun,PipelineRun>> and the PipelineRun usually takes time to complete, to check the status of the PipelineRun use the `logs` command of pipelinerun like:
+We will use the Tekton cli to inspect the created resources:
+
+[#tekton-inspect-pipelinerun]
+[source,bash,subs="+macros,attributes+"]
+----
+tkn pipelinerun ls
+----
+copyToClipboard::tekton-inspect-pipelinerun[]
+
+The above command should list one PipelineRun as shown below:
+
+[source,bash]
+----
+NAME                      STARTED          DURATION    STATUS                        
+kn-svc-deploy-run-4896t   4 seconds ago    ---         Running 
+----
+
+NOTE: It will take few seconds for the PipelineRun to show status as `Running` as it needs to download the container images.
+
+[TIP]
+====
+* Use the command **help** via `tkn pipelinerun --help`
+* Use `pr` as shorcut for pipelinerun commands e.g to list pipelinerun run the command `tkn pr ls`
+====
+
+To check the status of the PipelineRun use the `logs` command of pipelinerun like:
 
 [#tekton-pipelinerun-logs]
 [source,bash,subs="+macros,attributes+"]
@@ -291,6 +280,15 @@ tkn pr logs -f -a <pipeline-run-name> #<1>
 ----
 copyToClipboard::tekton-pipelinerun-logs[]
 <1> The `-f` or `-a` allows to tail the logs from all the containers of the pipeline tasks. For more options run `tkn pr --help`
+
+If you see the PipelineRun status as `Failed` or `Error` use the following command to check the reason for error:
+
+[#tekton-desc-pipelinerun]
+[source,bash,subs="+macros,attributes+"]
+----
+tkn pipelinerun describe <pipelinerun-name>
+----
+copyToClipboard::tekton-desc-pipelinerun[]
 
 [#tekton-test-pipeline]
 == Invoke Service

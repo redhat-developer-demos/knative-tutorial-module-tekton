@@ -22,7 +22,7 @@ To deploy the Tekton pipelines:
 [source,bash,subs="+macros,attributes+"]
 ----
 kubectl apply --filename \
-  https://storage.googleapis.com/tekton-releases/latest/release.yaml
+  https://storage.googleapis.com/tekton-releases/previous/{tekton-version}/release.yaml
 ----
 copyToClipboard::tekton-deploy-pipelines[]
 
@@ -69,6 +69,3 @@ Download the Tekton cli and add to your path:
 * https://github.com/tektoncd/cli/releases/download/v{tekton-cli-version}/tkn_{tekton-cli-version}_Windows_x86_64.tar.gz[Download for Windows]
 
 include::partial$tekton-cli.adoc[]
-
-[#watching-logs]
-== Watching Logs
