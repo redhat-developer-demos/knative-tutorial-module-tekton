@@ -16,31 +16,13 @@ include::knative-tutorial-basics:ROOT:partial$prereq-cli.adoc[]
 Kubernetes::
 +
 --
-
-Enable registry in minikube 
-
-[#tekton-deploy-enable-registry]
-[source,bash,subs="+macros,attributes+"]
-----
-minikube addons enable registry
-----
-copyToClipboard::tekton-deploy-enable-registry[]
-
-A successful enable of registry will show the following pods when running the command ` kubectl get pods -n kube-system | grep registry`
-
-[source,bash,subs="+macros,attributes+"]
-----
-registry-8s8xt                              1/1     Running   0          4m29s
-registry-proxy-wq6xl                        1/1     Running   0          4m29s
-----
-
-Once the registry is enabled, deploy the Tekton pipelines:
+To deploy the Tekton pipelines:
 
 [#tekton-deploy-pipelines]
 [source,bash,subs="+macros,attributes+"]
 ----
 kubectl apply --filename \
-  https://storage.googleapis.com/tekton-releases/latest/release.yaml
+  https://storage.googleapis.com/tekton-releases/previous/{tekton-version}/release.yaml
 ----
 copyToClipboard::tekton-deploy-pipelines[]
 
@@ -87,6 +69,3 @@ Download the Tekton cli and add to your path:
 * https://github.com/tektoncd/cli/releases/download/v{tekton-cli-version}/tkn_{tekton-cli-version}_Windows_x86_64.tar.gz[Download for Windows]
 
 include::partial$tekton-cli.adoc[]
-
-[#watching-logs]
-== Watching Logs

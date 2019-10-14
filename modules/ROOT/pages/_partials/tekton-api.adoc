@@ -6,11 +6,12 @@ ifndef::workshop[]
 Kubernetes::
 +
 --
+[#tekton-api-kind-k8s]
 [source,bash,subs="+macros,attributes+"]
-[source,bash]
 ----
 kubectl api-resources --api-group='tekton.dev'
 ----
+copyToClipboard::tekton-api-kind-k8s[]
 --
 OpenShift::
 +
@@ -21,7 +22,7 @@ endif::[]
 ----
 oc api-resources --api-group='tekton.dev'
 ----
-copyToClipboard::tekton-build-res-deploy-to-oc[]
+copyToClipboard::tekton-api-kind-oc[]
 ifndef::workshop[]
 --
 ====

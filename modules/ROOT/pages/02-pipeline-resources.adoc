@@ -19,14 +19,7 @@ include::partial$tekton-cli.adoc[]
 [#tekton-res-create]
 == Create a pipeline resource
 
-Navigate to the tutorial chapter folder:
-
-[#tekton-res-nav-folder]
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/{pipelines-repo}
-----
-copyToClipboard::tekton-res-nav-folder[]
+include::partial$tekton-nav-to-folder.adoc[]
 
 The following snippet shows what a Knative service YAML looks like:
 
@@ -45,11 +38,11 @@ Each pipeline resource has:
 * **params**: each type can have one or more parameters that will be used to configure the underlying type. In the above example for the `git-source` pipeline resource, the parameters `url` and `revision` are used  to identify the GitHub repository url and revision of the sources respectively.
 
 More details on other types of pipeline resource types is available https://github.com/tektoncd/pipeline/blob/master/docs/resources.md#resource-types[here].
-
-The pipeline resource could be created using the following command:
  
 [#tekton-res-deploy]
 == Deploy a pipeline resource
+
+The pipeline resource could be created using the command:
 
 ifndef::workshop[]
 [tabs]
@@ -115,7 +108,7 @@ PipelineResource Type:   git
 Params
 NAME       VALUE
 url        https://github.com/redhat-developer-demos/knative-tutorial
-revision   0.7.x
+revision   release/0.7.x
 
 Secret Params
 No secret params
