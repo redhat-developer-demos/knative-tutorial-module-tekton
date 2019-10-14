@@ -314,7 +314,7 @@ Kubernetes::
 ----
 kubectl run demo-greeter -n {tutorial-namespace} \
  --generator='run-pod/v1' \
- --image='localhost:5000/rhdevelopers/knative-tutorial-greeter' && \
+ --image='dev.local/rhdevelopers/knative-tutorial-greeter' && \
 kubectl expose pod demo-greeter -n {tutorial-namespace} --port 8080 --type=NodePort
 ----
 copyToClipboard::tekton-app-run-to-k8s[]
@@ -326,7 +326,7 @@ endif::[]
 [#tekton-app-run-to-oc]
 [source,bash,subs="+macros,attributes+"]
 ----
-oc run demo-greeter -n {tutorial-namespace} --generator='run-pod/v1' --image='localhost:5000/rhdevelopers/knative-tutorial-greeter' && \
+oc run demo-greeter -n {tutorial-namespace} --generator='run-pod/v1' --image='dev.local/rhdevelopers/knative-tutorial-greeter' && \
 oc expose pod demo-greeter -n {tutorial-namespace} --port 8080 --type=NodePort && \
 oc expose svc -n {tutorial-namespace} demo-greeter
 ----

@@ -234,7 +234,7 @@ If you have maven mirror available then you can modify the above command to use 
 [source,bash,subs="+macros,attributes+"]
 ----
 tkn pipeline start kn-svc-deploy \
- --param="mavenMirrorUrl=http://192.168.64.1:8081/nexus/content/groups/public" \
+ --param="mavenMirrorUrl=http://nexus:8081/nexus/content/groups/public" \
  --resource="appSource=git-source" \#<1>
  --resource="appImage=knative-tutorial-greeter-image" \#<2>
  --serviceaccount='pipeline' #<3>
