@@ -1,6 +1,6 @@
 * xref:01-setup.adoc[1. Setup]
 ** xref:01-setup.adoc#tekton-prerequisites[Prerequisites]
-** xref:01-setup.adoc#deploy-tekton[Deploy Tekton]
+** xref:01-setup.adoc#deploy-tekton[Install Tekton]
 ** xref:01-setup.adoc#install-tekton-cli[Install Tekton CLI]
 
 * xref:02-pipeline-resources.adoc[2. Pipeline Resources]
